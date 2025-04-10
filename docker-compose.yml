@@ -39,3 +39,25 @@ services:
     container_name: simulator
     depends_on:
       - backend
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: monitoring
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  log-consumer:
+    build: ./log-consumer
+    container_name: log-consumer
+    depends_on:
+      - kafka
+      - postgres
+
+volumes:
+  pgdata:
