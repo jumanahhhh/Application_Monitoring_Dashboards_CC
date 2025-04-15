@@ -14,7 +14,7 @@ function getRandomUser() {
 
 function sendRandomRequest() {
   const endpoint = endpoints[Math.floor(Math.random() * endpoints.length)];
-  const url = `http://backend:3000${endpoint.path}`;
+  const url = `http://backend:8000${endpoint.path}`;
 
   const start = Date.now();
 

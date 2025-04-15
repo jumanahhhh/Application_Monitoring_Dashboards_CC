@@ -4,7 +4,7 @@ const cors = require("cors");
 const { sendLog } = require("./kafka/producer");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -21,37 +21,37 @@ function buildLog(endpoint, method, status, payload) {
 }
 
 // POST /data
-app.post("/data", (req, res) => {
+app.post("/data", async (req, res) => {
   const log = buildLog("/data", "POST", 200, req.body);
-  sendLog(log);
+  await sendLog(log);
   res.status(200).json({ message: "Log sent to Kafka", log });
 });
 
 // POST /login
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   const log = buildLog("/login", "POST", 200, req.body);
-  sendLog(log);
+  await sendLog(log);
   res.status(200).json({ message: "Login successful" });
 });
 
 // GET /status
-app.get("/status", (req, res) => {
+app.get("/status", async (req, res) => {
   const log = buildLog("/status", "GET", 200, {});
-  sendLog(log);
+  await sendLog(log);
   res.status(200).json({ status: "ok" });
 });
 
 // GET /metrics
-app.get("/metrics", (req, res) => {
+app.get("/metrics", async (req, res) => {
   const log = buildLog("/metrics", "GET", 200, {});
-  sendLog(log);
+  await sendLog(log);
   res.status(200).json({ uptime: process.uptime(), memoryUsage: process.memoryUsage() });
 });
 
 // GET /users
-app.get("/users", (req, res) => {
+app.get("/users", async (req, res) => {
   const log = buildLog("/users", "GET", 200, {});
-  sendLog(log);
+  await sendLog(log);
   res.status(200).json({ users: ["User1", "User2", "User3"] });
 });
 

@@ -1,16 +1,13 @@
 {
   "name": "log-consumer",
   "version": "1.0.0",
+  "description": "",
   "main": "consumer.js",
-  "dependencies": {
-    "kafka-node": "^5.0.0",
-    "pg": "^8.14.1"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node consumer.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "pg": "^8.7.1",
+    "kafkajs": "^2.2.4"
+  }
 }
